@@ -1,0 +1,34 @@
+.addressContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    background: white;
+    color: black;
+  }
+  
+  /* 비활성화된 입력 필드 */
+  .input:disabled {
+    background: #e0e0e0;
+    color: #999;
+  }
+  
+  .button {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 0 5px 5px 0;
+    text-align: center;
+    width: 80px;
+    height: 40px; /* 입력 필드와 높이 동일 */
+  }
+  

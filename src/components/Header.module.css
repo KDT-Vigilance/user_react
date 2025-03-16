@@ -1,0 +1,65 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+}
+
+.logo {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.profileIcon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.inputContainer {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 200px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.button {
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 6px;
+  cursor: pointer;
+  width: 105px;
+  text-align: center;
+}
+
+.button:hover {
+  background-color: lightgray;
+}
