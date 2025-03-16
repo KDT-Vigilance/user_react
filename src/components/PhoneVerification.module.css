@@ -1,0 +1,60 @@
+.phoneContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 20px; /* ✅ 입력란 간격 */
+  }
+  
+  .inputGroup {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    font-size: 14px;
+    background: white;
+    color: black;
+  }
+  
+  /* 비활성화된 입력 필드 */
+  .input:disabled {
+    background: #e0e0e0;
+    color: #999;
+  }
+  
+  .button {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 0 5px 5px 0;
+    text-align: center;
+    width: 80px;
+    height: 40px; /* 버튼 높이 맞춤 */
+  }
+  
+  .button:disabled {
+    background: gray;
+    cursor: not-allowed;
+  }
+  
+  /* ✅ 에러 메시지 위쪽 배치 */
+  .errorContainer {
+    height: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .error {
+    color: red;
+    font-size: 14px;
+    margin: 0;
+  }
+  
