@@ -1,38 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // ✅ useNavigate 추가
 import styles from "./Header.module.css";
 import SignupModal from "./SignupModal";
 
-function Header({ toggleSidebar }) {
+function Header() {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState("");
-  const [token, setToken] = useState(null);
-  const [name, setName] = useState(""); 
+  const navigate = useNavigate(); // ✅ useNavigate 사용
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    if (storedToken) {
-      setToken(storedToken);
-      fetchUserName(storedToken);
-    }
-  }, []);
-
-  const fetchUserName = async (token) => {
-    try {
-      const response = await fetch("http://localhost:8080/auth/userinfo", {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await response.json();
-      if (response.ok) {
-        setName(data.name);
-      }
-    } catch (error) {
-      console.error("사용자 정보 불러오기 실패", error);
-    }
-  };
-
+  /**
+   * ✅ 로그인 요청 & 로그인 성공 시 `/watch`로 이동
+   */
   const handleLogin = async () => {
     try {
       const response = await fetch("http://localhost:8080/auth/login", {
@@ -42,31 +22,22 @@ function Header({ toggleSidebar }) {
       });
 
       const data = await response.json();
-
       if (!response.ok) {
         throw new Error(data.message || "로그인 실패");
       }
 
-      alert("로그인 성공");
+      // ✅ 로그인 성공 시 토큰 저장 및 페이지 이동
       localStorage.setItem("token", data.token);
-      setToken(data.token);
-      fetchUserName(data.token);
-      setError("");
+      navigate("/watch"); // ✅ 페이지 이동 (useNavigate 사용)
     } catch (err) {
       setError(err.message);
     }
   };
 
   return (
-    <header className={styles.header}>
-      <h1 className={styles.logo}>VIGILANCE</h1>
-
-      {token ? (
-        <div className={styles.profile} onClick={toggleSidebar}> {/* 클릭 시 사이드바 열림 */}
-          <span>{name}</span>
-          <img src="/profile-icon.png" alt="Profile" className={styles.profileIcon} />
-        </div>
-      ) : (
+    <>
+      <header className={styles.header}>
+        <h1 className={styles.logo}>VIGILANCE</h1>
         <div className={styles.loginContainer}>
           {error && <p className={styles.error}>{error}</p>}
           <div className={styles.inputContainer}>
@@ -90,10 +61,11 @@ function Header({ toggleSidebar }) {
             <button onClick={() => setIsModalOpen(true)} className={styles.button}>회원가입</button>
           </div>
         </div>
-      )}
+      </header>
 
+      {/* ✅ 모달이 헤더 바깥에서 렌더링되도록 수정 */}
       {isModalOpen && <SignupModal onClose={() => setIsModalOpen(false)} />}
-    </header>
+    </>
   );
 }
 
