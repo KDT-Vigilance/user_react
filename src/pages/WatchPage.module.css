@@ -1,0 +1,117 @@
+/* 전체 컨테이너 */
+.container {
+    display: flex;
+    height: 100vh;
+    background-color: #202b38;
+  }
+  
+  /* 왼쪽 사이드바 */
+  .sidebar {
+    width: 250px;
+    background-color: #102030;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .logo {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .cameraButton {
+    background: #304050;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: left;
+    width: 100%;
+  }
+  
+  .cameraButton:hover {
+    background: #406060;
+  }
+  
+  /* 🎯 카메라 이름 입력 */
+  .cameraInput {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* 메인 영상 스트리밍 영역 */
+  .mainContent {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background: #151a22;
+    padding: 20px;
+    color: white;
+  }
+  
+  /* 🚨 감지된 카메라 알림 (평소에는 숨김) */
+  .alertBox {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  }
+  
+  .alertBox.active {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .alertButton {
+    background-color: #ff4444;
+    color: white;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .alertButton:hover {
+    background-color: #cc0000;
+  }
+  
+  /* 🎥 라이브 영상 박스 */
+  .videoWrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* 🎥 영상 박스 (안전하게 감싸기) */
+  .videoContainer {
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    overflow: hidden; /* 🔥 영상이 벗어나지 않도록 */
+  }
+  
+  /* 📹 스트리밍 영상 */
+  .videoStream {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
+  }
+  

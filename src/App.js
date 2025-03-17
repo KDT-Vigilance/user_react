@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Main from "./routes/Main";
-import Header from "./components/Header";
+import Watch from "./routes/Watch";
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
   return (
     <Router>
-      <Header toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
         <Routes>
-          <Route path="/" element={<Main isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+          <Route path="/" element={<Main/>} />
+          <Route path="/watch" element={<Watch/>} />
         </Routes>
     </Router>
   );
