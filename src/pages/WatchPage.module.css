@@ -1,50 +1,96 @@
-/* 전체 컨테이너 */
+/* 🌟 전체 컨테이너 */
 .container {
   display: flex;
   height: 100vh;
   background-color: #202b38;
 }
 
-/* 왼쪽 사이드바 */
+/* 🌟 햄버거 버튼 */
+.hamburger {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: #304050;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 5px;
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger:hover {
+  background: #406060;
+}
+
+/* 🌟 사이드바 기본 (닫힌 상태) */
 .sidebar {
-  width: 250px;
+  width: 80px; /* 🔹 닫혀 있을 때는 햄버거 버튼만 보이게 */
   background-color: #102030;
   color: white;
   display: flex;
   flex-direction: column;
+  padding: 10px;
+  align-items: center;
+  transition: width 0.3s ease-in-out;
+  overflow: hidden;
+  position: fixed;
+  height: 100vh;
+}
+
+/* 🌟 사이드바가 열렸을 때 */
+.sidebar.open {
+  min-width: 250px; /* 🔹 열리면 전체 메뉴 표시 */
+  align-items: flex-start;
   padding: 20px;
 }
 
+/* 🌟 Vigilance 로고 */
 .logo {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
-  margin-bottom: 20px;
+  color: white;
+  transition: opacity 0.3s ease-in-out;
 }
 
+.sidebar.closed .logo {
+  opacity: 0;
+}
+
+/* 🌟 카메라 목록 버튼 */
 .cameraButton {
-  background: #304050;
-  color: white;
-  border: none;
+  background: #ffffff;
+  color: #000;
+  border: 1px solid #ccc;
   padding: 10px;
-  margin: 10px 0;
+  margin: 5px 0;
   cursor: pointer;
   border-radius: 5px;
   text-align: left;
   width: 100%;
+  font-size: 16px;
+  transition: background 0.2s ease-in-out;
+  display: none;
+}
+
+.sidebar.open .cameraButton {
+  display: block;
 }
 
 .cameraButton:hover {
-  background: #406060;
+  background: #f0f0f0;
 }
 
-/* 카메라가 없을 때 */
-.noCameras {
-  color: #aaa;
-  font-size: 16px;
-  text-align: center;
+/* 🌟 선택된 카메라 강조 */
+.cameraButton.active {
+  background: #0084ff;
+  color: white;
+  font-weight: bold;
 }
 
-/* 🚨 감지된 카메라 알림 (우측 상단 고정) */
+/* 🌟 감지된 카메라 알림 (우측 상단) */
 .alertBox {
   position: absolute;
   top: 10px;
@@ -52,8 +98,20 @@
   display: flex;
   gap: 10px;
   z-index: 10;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
+/* 🌟 🚨 감지된 카메라가 없을 때 숨김 */
+.alertBox:empty {
+  display: none;
+}
+
+/* 🌟 🚨 상황 발생 버튼 */
 .alertButton {
   background-color: #ff4444;
   color: white;
@@ -69,12 +127,26 @@
   background-color: #cc0000;
 }
 
-/* 🚨 감지된 카메라가 없으면 숨김 */
-.alertBox:empty {
-  display: none;
+/* 🌟 🚨 선택된 상황 발생 버튼 강조 */
+.alertButton.active {
+  background: #ff9900;
 }
 
-/* 🎥 메인 영상 */
+/* 🌟 📍 우측 상단 주소 박스 */
+.addressBox {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* 🌟 🎥 메인 영상 */
 .mainContent {
   flex-grow: 1;
   display: flex;
@@ -82,9 +154,16 @@
   background: #151a22;
   padding: 20px;
   color: white;
+  position: relative;
+  margin-left: 60px;
+  transition: margin-left 0.3s ease-in-out;
 }
 
-/* 🚨 50:50 분할 화면 */
+.sidebar.open + .mainContent {
+  margin-left: 250px;
+}
+
+/* 🌟 🚨 50:50 신고 화면 */
 .videoWrapper {
   display: flex;
   width: 100%;
@@ -93,7 +172,7 @@
   transition: all 0.3s ease-in-out;
 }
 
-/* ✅ 감지 없을 때 기본 화면 */
+/* ✅ 기본 Live Stream 화면 */
 .videoWrapperSingle {
   display: flex;
   width: 100%;
@@ -103,8 +182,7 @@
   transition: all 0.3s ease-in-out;
 }
 
-
-/* 🎥 영상 박스 */
+/* 🌟 🎥 영상 박스 */
 .videoContainer {
   flex: 1;
   background: black;
@@ -124,10 +202,68 @@
   border-radius: 10px;
 }
 
-/* 🚨 녹화된 영상이 없을 때 */
-.noVideo {
-  color: #bbb;
+/* 🌟 🚨 감지된 영상 제목 */
+.videoTitle {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background: black;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+/* 🌟 🚨 ‘상황 발생’ / ‘실시간’ 텍스트 */
+.videoLabel {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: black;
+  color: white;
   font-size: 18px;
   font-weight: bold;
-  text-align: center;
+  padding: 5px 15px;
+  border-radius: 5px;
+}
+
+/* 🌟 🚨 신고 완료 버튼 */
+.completeButton {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: #ff4444;
+  color: white;
+  padding: 8px 12px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background 0.2s ease-in-out;
+}
+
+.completeButton:hover {
+  background: #cc0000;
+}
+
+/* 🌟 🚨 상태 메시지 (우측 하단) */
+.statusBox {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* 🌟 상태 메시지 애니메이션 */
+.statusBox.fade-out {
+  opacity: 0;
+  transform: translateY(10px);
 }
