@@ -28,6 +28,7 @@ function Header() {
 
       // ✅ 로그인 성공 시 토큰 저장 및 페이지 이동
       localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.userId);
       navigate("/watch"); // ✅ 페이지 이동 (useNavigate 사용)
     } catch (err) {
       setError(err.message);

@@ -88,7 +88,7 @@
 .videoWrapper {
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 90%;
   gap: 10px;
   transition: all 0.3s ease-in-out;
 }
@@ -119,7 +119,7 @@
 /* 📹 스트리밍 영상 */
 .videoStream {
   width: 100%;
-  height: 100%;
+  height: 90%;
   object-fit: cover;
   border-radius: 10px;
 }
