@@ -167,6 +167,13 @@ function WatchPage({ userId }) {
   /** ✅ 실시간 스트리밍 URL */
   const videoFeedUrl = `http://localhost:8000/video/video_feed?camera=${selectedCamera}`;
 
+  // ✅ 최신 신고된 비디오를 가져오기 위해 추가
+  const latestReport = reportList.length > 0 ? reportList[reportList.length - 1] : null;
+
+  
+  const selectedReport = reportList.find((r) => r._id === selectedReportId)
+
+  
   return (
     <div className={styles.container}>
       {/* ✅ 햄버거 버튼 (사이드바 토글) */}
@@ -215,17 +222,24 @@ function WatchPage({ userId }) {
         {/* ✅ 상황 발생 버튼 (신고 리스트) */}
         {reportList.length > 0 && (
           <div className={styles.alertBox}>
-            {reportList.map((report) => (
-              <button
-                key={report._id}
-                className={`${styles.alertButton} ${selectedReportId === report._id ? styles.active : ""}`}
-                onClick={() => setSelectedReportId(report._id)} // ✅ 신고된 영상 클릭 시 50:50 화면 전환
-              >
-                상황 발생: {report.camName}
-              </button>
-            ))}
+            {reportList.map((report) => {
+              // 🔍 camName이 로컬 스토리지에 저장된 이름인지 확인
+              const storedCamNames = JSON.parse(localStorage.getItem("camname")) || {};
+              const displayCamName = storedCamNames[report.camName] || report.camName;
+
+              return (
+                <button
+                  key={report._id}
+                  className={`${styles.alertButton} ${selectedReportId === report._id ? styles.active : ""}`}
+                  onClick={() => setSelectedReportId(report._id)} // ✅ 신고된 영상 클릭 시 50:50 화면 전환
+                >
+                  상황 발생: {displayCamName} {/* 🔹 CAM1 → 저장된 카메라 이름으로 표시 */}
+                </button>
+              );
+            })}
           </div>
         )}
+
 
 
         {/* ✅ 50:50 화면 (상황 발생 시, status가 3 이상이면 해제) */}
@@ -236,17 +250,19 @@ function WatchPage({ userId }) {
               <div className={styles.videoLabel}>실시간</div>
             </div>
             <div className={styles.videoContainer}>
-            <video
-              src={reportList.find((r) => r._id === selectedReportId)?.videoUrl}
-              autoPlay
-              loop
-              muted
-              controls
-              playsInline // ✅ 모바일 자동 재생 지원
-              preload="auto" // ✅ 비디오 로딩 속도 향상
-              onLoadedMetadata={(e) => e.target.play()} // ✅ 재생 보장
-              className={styles.videoStream}
-            />
+              {selectedReport && (
+                <video
+                  key={selectedReport.video_url}
+                  src={selectedReport.video_url}
+                  autoPlay
+                  loop
+                  muted
+                  controls
+                  preload="auto"
+                  onLoadedMetadata={(e) => e.target.play()}
+                  className={styles.videoStream}
+                />
+              )}
               <div className={styles.videoLabel}>상황 발생</div>
             </div>
           </div>
