@@ -8,7 +8,7 @@
 /* 🌟 햄버거 버튼 */
 .hamburger {
   position: fixed;
-  top: 15px;
+  top: 30px;
   left: 15px;
   background: #304050;
   color: white;
@@ -17,7 +17,7 @@
   cursor: pointer;
   font-size: 20px;
   border-radius: 5px;
-  z-index: 1000;
+  z-index: 1100; /* ⭐ 햄버거 버튼이 사이드바 위로 올라오도록 수정 */
   transition: all 0.3s ease-in-out;
 }
 
@@ -32,18 +32,19 @@
   color: white;
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding-top: 60px; /* ⭐ 햄버거 버튼과 겹치지 않도록 여백 추가 */
   align-items: center;
   transition: width 0.3s ease-in-out;
   overflow: hidden;
   position: fixed;
   height: 100vh;
+  z-index: 1000; /* ⭐ 메인 화면보다 앞으로 배치 */
 }
 
 /* 🌟 사이드바가 열렸을 때 */
 .sidebar.open {
-  min-width: 250px; /* 🔹 열리면 전체 메뉴 표시 */
-  align-items: flex-start;
+  width: 200px; /* 🔹 열리면 전체 메뉴 표시 */
+  align-items: center;
   padding: 20px;
 }
 
@@ -53,6 +54,7 @@
   font-weight: bold;
   color: white;
   transition: opacity 0.3s ease-in-out;
+  margin-bottom: 20px;
 }
 
 .sidebar.closed .logo {
@@ -146,7 +148,7 @@
   text-align: center;
 }
 
-/* 🌟 🎥 메인 영상 */
+/* 🌟 메인 콘텐츠 */
 .mainContent {
   flex-grow: 1;
   display: flex;
@@ -155,7 +157,7 @@
   padding: 20px;
   color: white;
   position: relative;
-  margin-left: 60px;
+  margin-left: 80px; /* ⭐ 기본적으로 사이드바 크기와 맞춤 */
   transition: margin-left 0.3s ease-in-out;
 }
 
@@ -223,7 +225,7 @@
   transform: translateX(-50%);
   background: black;
   color: white;
-  font-size: 18px;
+  font-size: 36px;
   font-weight: bold;
   padding: 5px 15px;
   border-radius: 5px;
@@ -256,7 +258,7 @@
   background: rgba(0, 0, 0, 0.7);
   color: white;
   padding: 8px 12px;
-  font-size: 16px;
+  font-size: 36px;
   font-weight: bold;
   border-radius: 5px;
   transition: all 0.3s ease-in-out;
