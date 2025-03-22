@@ -7,6 +7,7 @@ const API_BASE_URL = "http://localhost:8080/auth"; // ✅ 백엔드 API 주소
 
 function SignupModal({ onClose }) {
   const [step, setStep] = useState(1);
+  const [name, setName] = useState("");
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -17,7 +18,7 @@ function SignupModal({ onClose }) {
 
   // ✅ Step 1 → Step 2 이동 (유효성 검사 + 아이디 중복 확인)
   const handleNext = async () => {
-    if (!account || !password || !confirmPassword) {
+    if (!name || !account || !password || !confirmPassword) {
       setError("모든 입력 필드를 작성해주세요.");
       return;
     }
@@ -63,6 +64,7 @@ function SignupModal({ onClose }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          name,
           account,
           password,
           phone,
@@ -94,6 +96,7 @@ function SignupModal({ onClose }) {
               <div className={styles.errorContainer}>
                 {error && <p className={styles.error}>{error}</p>}
               </div>
+              <input type="text" placeholder="가게명 (상호명)" value={name} onChange={(e) => setName(e.target.value)} className={styles.input} />
               <input type="text" placeholder="로그인할 ID" value={account} onChange={(e) => setAccount(e.target.value)} className={styles.input} />
               <input type="password" placeholder="비밀번호" value={password} onChange={(e) => setPassword(e.target.value)} className={styles.input} />
               <input type="password" placeholder="비밀번호 확인" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className={styles.input} />
